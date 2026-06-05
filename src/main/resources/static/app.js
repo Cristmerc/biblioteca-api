@@ -1,5 +1,5 @@
-const API_URL = "https://biblioteca-api-ivz6.onrender.com";
-const API_STATS_URL = "https://biblioteca-api-ivz6.onrender.com/estadisticas";
+const API_URL = "https://biblioteca-api-ivz6.onrender.com/libros";
+const API_STATS_URL = "https://biblioteca-api-ivz6.onrender.com/libros/estadisticas";
 
 // Load books (can receive an optional author filter)
 async function loadBooks(authorFilter = "") {
@@ -7,7 +7,7 @@ async function loadBooks(authorFilter = "") {
 
     // If there is a filter, we add it as a Query Parameter (?autor=...)
     if (authorFilter.trim() !== "") {
-        url += `?autor=${encodeURIComponent(authorFilter)}`;
+        url += `?author=${encodeURIComponent(authorFilter)}`;
     }
 
     const response = await fetch(url);
@@ -50,9 +50,9 @@ async function loadStatistics() {
 
         const data = await response.json();
 
-        document.getElementById("stat-total").textContent = data.totalBooks;
-        document.getElementById("stat-promedio").textContent = data.averageYear;
-        document.getElementById("stat-autor").textContent = data.mostPopularAuthor;
+        document.getElementById("stat-total").textContent = data.totalLibros;
+        document.getElementById("stat-promedio").textContent = data.anioPromedio;
+        document.getElementById("stat-autor").textContent = data.autorMasPopular;
 
     } catch (error) {
         console.error("No se pudieron cargar las estadísticas:", error);
