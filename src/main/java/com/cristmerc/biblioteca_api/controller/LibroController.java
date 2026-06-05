@@ -25,17 +25,17 @@ public class LibroController {
         return repository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")// endpoint
     public Libro getById(@PathVariable Long id) {
         return repository.findById(id).orElseThrow();
     }
 
-    @PostMapping
+    @PostMapping // endpoint
     public Libro create(@RequestBody Libro book) {
         return repository.save(book);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}")// endpoint
     public Libro update(@PathVariable Long id,
                         @RequestBody Libro updatedBook) {
 
@@ -48,7 +48,7 @@ public class LibroController {
         return repository.save(book);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // endpoint
     public void delete(@PathVariable Long id) {
         repository.deleteById(id);
     }
@@ -56,11 +56,10 @@ public class LibroController {
     @GetMapping("/estadisticas")
     public EstadisticasDTO getStatistics() {
         long total = repository.count();
-        Double rawAverage = repository.getAverageYear(); // Usando el nuevo método del repositorio
+        Double rawAverage = repository.getAverageYear();
         int average = (rawAverage != null) ? rawAverage.intValue() : 0;
-        String author = repository.getMostPopularAuthor(); // Usando el nuevo método del repositorio
+        String author = repository.getMostPopularAuthor();
 
         return new EstadisticasDTO(total, average, author);
     }
-
 }
