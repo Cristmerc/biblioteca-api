@@ -3,6 +3,7 @@ package com.cristmerc.biblioteca_api.controller;
 import com.cristmerc.biblioteca_api.entity.Libro;
 import com.cristmerc.biblioteca_api.repository.LibroRepository;
 import org.springframework.web.bind.annotation.*;
+import com.cristmerc.biblioteca_api.dto.EstadisticasDTO;
 
 import java.util.List;
 
@@ -17,35 +18,49 @@ public class LibroController {
     }
 
     @GetMapping
-    public List<Libro> obtenerTodos() {
+    public List<Libro> getAll(@RequestParam(required = false) String author) {
+        if (author != null && !author.trim().isEmpty()) {
+            return repository.findByAuthor(author);
+        }
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Libro obtenerPorId(@PathVariable Long id) {
+    public Libro getById(@PathVariable Long id) {
         return repository.findById(id).orElseThrow();
     }
 
     @PostMapping
-    public Libro crear(@RequestBody Libro libro) {
-        return repository.save(libro);
+    public Libro create(@RequestBody Libro book) {
+        return repository.save(book);
     }
 
     @PutMapping("/{id}")
-    public Libro actualizar(@PathVariable Long id,
-                            @RequestBody Libro libroActualizado) {
+    public Libro update(@PathVariable Long id,
+                        @RequestBody Libro updatedBook) {
 
-        Libro libro = repository.findById(id).orElseThrow();
+        Libro book = repository.findById(id).orElseThrow();
 
-        libro.setTitulo(libroActualizado.getTitulo());
-        libro.setAutor(libroActualizado.getAutor());
-        libro.setAnio(libroActualizado.getAnio());
+        book.setTitulo(updatedBook.getTitulo());
+        book.setAutor(updatedBook.getAutor());
+        book.setAnio(updatedBook.getAnio());
 
-        return repository.save(libro);
+        return repository.save(book);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         repository.deleteById(id);
     }
+
+    @GetMapping("/estadisticas")
+    public EstadisticasDTO getStatistics() {
+        long total = repository.count();
+        Double rawAverage = repository.getAverageYear(); // Usando el nuevo método del repositorio
+        int average = (rawAverage != null) ? rawAverage.intValue() : 0;
+        String author = repository.getMostPopularAuthor(); // Usando el nuevo método del repositorio
+
+        return new EstadisticasDTO(total, average, author);
+    }
+
 }

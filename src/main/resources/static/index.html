@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📚 Biblioteca Online</h1>
+
+<div class="container">
+
+    <!-- Sección de Panel de Control / Estadísticas -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">📖</div>
+            <div class="stat-info">
+                <h3 id="stat-total">0</h3>
+                <p>Total Libros</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+                <h3 id="stat-promedio">0</h3>
+                <p>Año Promedio</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✍️</div>
+            <div class="stat-info">
+                <h3 id="stat-autor">N/A</h3>
+                <p>Autor Popular</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario para agregar -->
+    <div class="formulario">
+        <input type="text" id="titulo" placeholder="Título">
+        <input type="text" id="autor" placeholder="Autor">
+        <input type="number" id="anio" placeholder="Año">
+
+        <button class="btn-agregar" onclick="agregarLibro()">
+            Añadir Libro
+        </button>
+    </div>
+
+    <!-- Barra de búsqueda por autor -->
+    <div class="buscador-container">
+        <input type="text" id="buscarAutor" placeholder="🔍 Buscar libros por autor..." oninput="buscarLibros()">
+    </div>
+
+    <h2>Catálogo de Libros</h2>
+
+    <div id="listaLibros"></div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
