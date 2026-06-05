@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:8080/libros";
-const API_STATS_URL = "http://localhost:8080/libros/estadisticas";
+const API_URL = "https://onrender.com";
+const API_STATS_URL = "https://onrender.com/estadisticas";
 
 // Load books (can receive an optional author filter)
 async function loadBooks(authorFilter = "") {
