@@ -35,6 +35,12 @@ public class LibroController {
         return repository.save(book);
     }
 
+    @PostMapping("/lote") // Nueva ruta para subir muchos en: POST /libros/lote
+    public List<Libro> createBulk(@RequestBody List<Libro> books) {
+        return repository.saveAll(books);
+    }
+
+
     @PutMapping("/{id}")// endpoint
     public Libro update(@PathVariable Long id,
                         @RequestBody Libro updatedBook) {
